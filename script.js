@@ -75,15 +75,15 @@ noBtn.addEventListener("click", function() {
   }
 
   // Start typing the first message with 3.56 seconds delay, stay for 1.39 seconds, and then disappear
-  typeMessage(message1, 3560, 145, 1250, function() {
+  typeMessage(message1, 3560, 140, 1250, function() {
     // After the first message disappears, start typing the second message
-    typeMessage(message2, 0, 195, 2646, function() { // Stay for 3.56 seconds for the second message
-      typeMessage(message3, 0, 115, 1695, function() {
-        typeMessage(message4, 0, 100, 1567, function() {
-          typeMessage(message5, 0, 135, 2667, function() {
-            typeMessage(message6, 0, 115, 2115, function() {
-              typeMessage(message7, 0, 150, 0765, function() {
-                typeMessage(message8, 0, 160, 10000);
+    typeMessage(message2, 0, 195, 2875, function() { // Stay for 2.87 seconds for the second message
+      typeMessage(message3, 0, 115, 1587, function() {
+        typeMessage(message4, 0, 112, 1345, function() {
+          typeMessage(message5, 0, 137, 2547, function() {
+            typeMessage(message6, 0, 105, 2045, function() {
+              typeMessage(message7, 0, 150, 0676, function() {
+                typeMessage(message8, 0, 167, 10000);
               });
             });
           });
