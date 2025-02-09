@@ -1,0 +1,105 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Load custom fonts */
+@font-face {
+    font-family: 'Fontssz'; /* Custom font for the question */
+    src: url('Fontssz.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Pontszz'; /* Custom font for the button */
+    src: url('pontszz.ttf') format('truetype');
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+/* Adjusting the Question (h1) Size and Position */
+h1 {
+    font-size: 2.5rem;
+    color: #5a3e8c;
+    margin: 30px 0;
+    font-family: 'Fontssz', sans-serif; /* Apply custom font to question */
+    transition: margin-top 0.5s ease;
+}
+
+/* Container for content */
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items at the top */
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding-top: 50px; /* Add space at the top of the page */
+}
+
+/* Buttons container */
+.buttons-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+/* Button Styling */
+button {
+    padding: 15px 30px;
+    font-size: 1.6rem;
+    background-color: #5a3e8c; /* Purple color */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    font-family: 'Pontszz', sans-serif; /* Apply custom font for buttons */
+    font-weight: 600; /* Bold font for buttons */
+    text-transform: uppercase; /* Optional: Make the button text uppercase */
+    letter-spacing: 1px; /* Optional: Add some letter-spacing for readability */
+}
+
+button:hover {
+    transform: scale(1.05);
+    background-color: #4a3077; /* Darker purple on hover */
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Move "No" button when clicked */
+#no-btn.moved {
+    position: absolute;
+    top: 1%; /* Moves the "No" button above the question */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Typing effect message */
+#typing-message {
+    font-size: 1.5rem;
+    color: #5a3e8c;
+    margin-top: 20px;
+    font-family: 'Fontssz', sans-serif; /* Apply custom font to answer */
+}
+
+/* GIF Styling */
+#gif {
+    position: absolute;
+    bottom: 20px; /* Adjust this value to position the gif further from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 100%;
+    max-height: 300px;
+    display: none; /* Initially hidden */
+}
