@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #ffe6f2;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.envelope-container {
+    position: relative;
+    width: 200px;
+    height: 150px;
+}
+
+#hearts-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    transform: rotate(-45deg);
+    animation: floatUp 2s linear infinite;
+}
+
+.heart::before, .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    left: 10px;
+    top: 0;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #ff6699;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #ff3366;
+}
