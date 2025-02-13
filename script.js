@@ -1,32 +1,38 @@
-const envelope = document.querySelector(".envelope");
-const button = document.getElementById("toggleButton");
-const heartsContainer = document.querySelector(".hearts");
+// Envelope 3D Scene using Three.js
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true });
 
-button.addEventListener("click", () => {
-    envelope.classList.toggle("open");
+renderer.setSize(300, 300);
+document.getElementById('scene-container').appendChild(renderer.domElement);
 
-    if (envelope.classList.contains("open")) {
-        button.textContent = "Close Envelope";
-        showHearts();
-    } else {
-        button.textContent = "Open Envelope";
-        heartsContainer.innerHTML = ""; // Clear hearts when closing
-    }
+// Envelope Shape
+const envelopeGeometry = new THREE.BoxGeometry(2, 1, 0.1);
+const envelopeMaterial = new THREE.MeshBasicMaterial({ color: 0xff6699 });
+const envelope = new THREE.Mesh(envelopeGeometry, envelopeMaterial);
+scene.add(envelope);
+
+camera.position.z = 3;
+
+// Render Loop
+function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+}
+animate();
+
+// GSAP Animation for Envelope Opening
+const openButton = document.getElementById("openButton");
+const closeButton = document.getElementById("closeButton");
+
+openButton.addEventListener("click", () => {
+    gsap.to(envelope.rotation, { duration: 1, x: Math.PI / 4 });
+    openButton.style.display = "none";
+    closeButton.style.display = "inline-block";
 });
 
-function showHearts() {
-    heartsContainer.innerHTML = "";
-    heartsContainer.style.display = "block";
-
-    for (let i = 0; i < 5; i++) {
-        let heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.style.left = `${Math.random() * 100 - 50}px`;
-        heart.style.animationDelay = `${Math.random() * 1}s`;
-        heartsContainer.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 2000);
-    }
-}
+closeButton.addEventListener("click", () => {
+    gsap.to(envelope.rotation, { duration: 1, x: 0 });
+    closeButton.style.display = "none";
+    openButton.style.display = "inline-block";
+});
