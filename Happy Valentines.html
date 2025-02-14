@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Valentines Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+    <style>
+        /* Existing Styles (same as before) */
+        :root {
+            --color-env: #FFB7C5;
+            --color-env2: #ff9aad;
+            --color-flap: #ff8da1;
+            --color-bg: #ed7fca;
+            --color-heart: #ff85a2;
+            --color-sparkle: #fff;
+            --wax-red: #c04040;
+        }
+
+        #envelope {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            margin: 0 auto;
+            top: 150px;
+            background-color: var(--color-flap);
+            box-shadow: 0 4px 20px rgba(0,0,0,.1);
+            cursor: pointer;
+        }
+
+        .front {
+            position: absolute;
+            width: 0;
+            height: 0;
+            z-index: 3;
+        }
+
+        .flap {
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 82px solid transparent;
+            border-top: 98px solid var(--color-flap);
+            transform-origin: top;
+            pointer-events: none;
+        }
+
+        .pocket {
+            border-left: 140px solid var(--color-env);
+            border-right: 140px solid var(--color-env);
+            border-bottom: 90px solid var(--color-env2);
+            border-top: 90px solid transparent;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .letter {
+            position: relative;
+            background-color: #e0d9dd;
+            width: 90%;
+            margin: 0 auto;
+            height: 90%;
+            top: 5%;
+            border-radius: 6px;
+            box-shadow: 0 2px 26px rgba(0,0,0,.08);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .letter:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-image: linear-gradient(180deg, 
+                rgba(255,255,255,0.00) 25%, 
+                rgba(255,231,236,0.70) 55%, 
+                rgba(255,231,236,1.00) 100%);
+        }
+
+        .message {
+            position: relative;
+            z-index: 2;
+            font-family: 'Handlee', cursive;
+            color: #d46a84;
+            text-align: center;
+            line-height: 1;
+            padding-top: 0px;
+        }
+
+        .message p {
+            margin: 10px 0;
+            font-size: 1.8em;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .envlope-wrapper {
+            height: 380px;
+            margin-top: 50px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .open .flap {
+            transform: rotateX(180deg);
+            transition: transform 0.4s ease, z-index 0.6s;
+            z-index: 1;
+        }
+
+        .close .flap {
+            transform: rotateX(0deg);
+            transition: transform 0.4s 0.6s ease, z-index 1s;
+            z-index: 5;
+        }
+
+        .close .letter {
+            transform: translateY(0px); 
+            transition: transform 0.4s ease, z-index 1s;
+            z-index: 1;
+        }
+
+        .open .letter {
+            transform: translateY(-80px) rotate(-2deg);
+            transition: transform 0.4s 0.6s ease, z-index 0.6s;
+            z-index: 2;
+        }
+
+        .letter-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffd1dc;
+            border-radius: 5px;
+            z-index: 3;
+        }
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+        .hearts, .sparkles {
+            position: absolute;
+            top: 90px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        .heart, .sparkle {
+            position: absolute;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            width: 8px;
+            height: 8px;
+            background: var(--color-sparkle);
+            border-radius: 50%;
+            animation: sparkleTwinkle 1s infinite;
+        }
+
+        .close .heart,
+        .close .sparkle {
+            opacity: 0;
+            animation: none;
+        }
+
+        .a1 { left: 20%; transform: scale(0.6); animation: slideUp 4s linear infinite, sideSway 2s ease-in-out infinite alternate; }
+        .a2 { left: 55%; animation: slideUp 5s linear infinite, sideSway 4s ease-in-out infinite alternate; }
+        .a3 { left: 10%; transform: scale(0.8); animation: slideUp 7s linear infinite, sideSway 2s ease-in-out infinite alternate; }
+
+        .s1 { left: 30%; animation: sparkleUp 3s linear infinite; }
+        .s2 { left: 60%; animation: sparkleUp 4s linear infinite; }
+        .s3 { left: 45%; animation: sparkleUp 5s linear infinite; }
+
+        @keyframes slideUp {
+            0% { top: 0; }
+            100% { top: -600px; }
+        }
+
+        @keyframes sideSway {
+            0% { margin-left: 0; }
+            50% { margin-left: 50px; }
+            100% { margin-left: 0; }
+        }
+
+        @keyframes sparkleUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-500px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes sparkleTwinkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+        }
+
+        body {
+            background-color: var(--color-bg);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .valentines-text {
+            font-family: 'Handlee', cursive;
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        .reset {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .reset button {
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background-color: var(--color-env);
+            border: 2px solid var(--color-env2);
+            border-radius: 20px;
+            color: white;
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            font-family: Arial, sans-serif;
+        }
+
+        .reset button:hover {
+            background-color: var(--color-env2);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .clickable-heart {
+            margin-top: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Limit size of heart images */
+        #fixed-heart, #broken-heart {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        /* Animation on click */
+        .clicked {
+            animation: clickEffect 0.4s ease-out;
+        }
+
+        @keyframes clickEffect {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2) rotate(15deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .lyrics {
+            font-family: 'Handlee', cursive;
+            font-size: 1.5em;
+            color: #d46a84;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="valentines-text">Happy Valentines Day!!</div>
+
+    <div class="envlope-wrapper">
+        <div id="envelope" class="close">
+            <div class="wax-seal"></div>
+            <div class="front flap"></div>
+            <div class="front pocket"></div>
+            <div class="letter">
+                <div class="letter-corner corner-tl"></div>
+                <div class="letter-corner corner-br"></div>
+                <div class="message">
+                    <p>Balik ka na imy:c </p>
+                    <p> 🧸💐 </p>
+                </div>
+            </div>
+            <div class="hearts">
+                <div class="heart a1"></div>
+                <div class="heart a2"></div>
+                <div class="heart a3"></div>
+            </div>
+            <div class="sparkles">
+                <div class="sparkle s1"></div>
+                <div class="sparkle s2"></div>
+                <div class="sparkle s3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Heart Icon -->
+    <div class="clickable-heart" id="heart">
+        <img src="fixed-heart.png" alt="Fixed Heart" id="fixed-heart" />
+        <img src="broken-heart.png" alt="Broken Heart" id="broken-heart" style="display:none;" />
+    </div>
+
+    <audio id="song" src="your-song.mp3"></audio>
+
+    <div class="lyrics" id="lyrics">
+        <p id="lyric1">This was the very first page</p>
+        <p id="lyric2">Not where the story line ends</p>
+        <p id="lyric3">My thoughts will echo your name, until I see you again</p>
+        <p id="lyric4">These are the words I held back, as I was leaving too soon</p>
+        <p id="lyric5">I was enchanted to meet you</p>
+        <p id="lyric6">Please don't be in love with someone else</p>
+        <p id="lyric7">Please don't have somebody waiting on you</p>
+        <p id="lyric8">Please don't be in love with someone else</p>
+        <p id="lyric9">Please don't have somebody waiting on you</p>
+    </div>
+
+    <div class="reset">
+        <button id="open">Open Envelope</button>
+        <button id="reset">Close Envelope</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const envelope = $('#envelope');
+            const btnOpen = $("#open");
+            const btnReset = $("#reset");
+            const heart = $('#heart');
+            const fixedHeart = $('#fixed-heart');
+            const brokenHeart = $('#broken-heart');
+            const song = $('#song')[0];
+            const lyrics = $('#lyrics');
+            let heartClicked = false;
+
+            envelope.on('click', open);
+            btnOpen.on('click', open);
+            btnReset.on('click', close);
+
+            heart.on('click', () => {
+                if (!heartClicked) {
+                    fixedHeart.hide();
+                    brokenHeart.show();
+                    song.play();
+                    lyrics.fadeIn();
+                    showLyrics();
+                } else {
+                    fixedHeart.show();
+                    brokenHeart.hide();
+                    song.pause();
+                    song.currentTime = 0;
+                    lyrics.fadeOut();
+                }
+                heartClicked = !heartClicked;
+                
+                // Add the click animation
+                heart.addClass('clicked');
+                setTimeout(() => {
+                    heart.removeClass('clicked');
+                }, 400);
+            });
+
+            function open() {
+                envelope.removeClass("close").addClass("open");
+            }
+
+            function close() {
+                envelope.removeClass("open").addClass("close");
+            }
+
+            function showLyrics() {
+                setTimeout(() => {
+                    $('#lyric1').fadeIn();
+                }, 1780); // 1.78 second delay
+
+                setTimeout(() => {
+                    $('#lyric2').fadeIn();
+                }, 4500);
+
+                setTimeout(() => {
+                    $('#lyric3').fadeIn();
+                }, 7300);
+
+                setTimeout(() => {
+                    $('#lyric4').fadeIn();
+                }, 10100);
+
+                setTimeout(() => {
+                    $('#lyric5').fadeIn();
+                }, 13400);
+
+                setTimeout(() => {
+                    $('#lyric6').fadeIn();
+                }, 16000);
+
+                setTimeout(() => {
+                    $('#lyric7').fadeIn();
+                }, 18800);
+
+                setTimeout(() => {
+                    $('#lyric8').fadeIn();
+                }, 21800);
+
+                setTimeout(() => {
+                    $('#lyric9').fadeIn();
+                }, 24700);
+            }
+        });
+    </script>
+
+    <style>
+        .lyrics {
+            font-size: 1.5em;
+            color: purple; /* Set default lyrics color to purple */
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .lyric {
+            opacity: 0.3; /* Dim until active */
+            transition: opacity 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+
+        .highlight {
+            color: white; /* White highlight */
+            font-weight: bold;
+            opacity: 1; /* Fully visible when highlighted */
+            text-shadow: 0px 0px 10px rgba(255, 64, 129, 0.8);
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const song = document.getElementById("song");
+            const lyrics = document.getElementById("lyrics");
+            const lyricLines = document.querySelectorAll(".lyric");
+
+            function highlightLyrics() {
+                let timestamps = [1.8, 4.5, 7.3, 10.1, 13.4, 16.0, 18.8, 21.8, 24.7];
+
+                lyrics.style.display = "block";
+
+                timestamps.forEach((time, index) => {
+                    setTimeout(() => {
+                        lyricLines.forEach(line => line.classList.remove("highlight"));
+                        lyricLines[index].classList.add("highlight");
+                    }, time * 1000);
+                });
+            }
+
+            song.addEventListener("play", highlightLyrics);
+
+            song.addEventListener("ended", () => {
+                lyricLines.forEach(line => line.classList.remove("highlight"));
+            });
+        });
+    </script>
+
+</body>
+</html>
